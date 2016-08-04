@@ -42,7 +42,7 @@ describe('Resonate', function() {
       .option('advkey')
       .option('opptykey')
       //.option('evtype') assuming all custom for now
-      .tag('<img hrc="https://ds.reson8.com/insights.gif?t=0&pixt=resonate&advkey={{ advkey }}&opptykey={{ opptykey }}&evkey={{ evkey }}&evtype=custom" width=1 height=1 border=0>')
+      .tag('<img hrc="https://ds.reson8.com/insights.gif?rand=[Math.random()*100]&t=0&pixt=resonate&advkey={{ advkey }}&opptykey={{ opptykey }}&evkey={{ evkey }}&evtype=custom" width=1 height=1 border=0>')
       .mapping('events'));
   });
 
