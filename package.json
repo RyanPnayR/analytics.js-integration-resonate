@@ -1,7 +1,7 @@
 {
-  "name": "astronomerio/analytics.js-integration-resonate",
+  "name": "@astronomerio/analytics.js-integration-resonate",
   "description": "The Resonate analytics.js integration.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "keywords": [
     "analytics.js",
     "analytics.js-integration",
@@ -24,6 +24,11 @@
   },
   "homepage": "https://github.com/astronomerio/analytics.js-integration-resonate/issues#readme",
   "dependencies": {
+    "@ndhoule/defaults": "^2.0.1",
+    "@ndhoule/foldl": "^2.0.1",
+    "@segment/analytics.js-integration": "^2.1.0",
+    "component-each": "^0.2.6",
+    "obj-case": "^0.2.0"
   },
   "devDependencies": {
     "@segment/analytics.js-core": "^3.0.0",
