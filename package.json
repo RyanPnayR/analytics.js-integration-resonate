@@ -13,7 +13,7 @@
     "npm": ">=2.7.0"
   },
   "repository": {
-    "url": "",
+    "url": "https://github.com/astronomerio/analytics.js-integration-resonate.git",
     "type": "git"
   },
   "bugs": {
