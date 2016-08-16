@@ -1,7 +1,7 @@
 {
-  "name": "@astronomerio/analytics.js-integration-resonate",
+  "name": "analytics.js-integration-resonate",
   "description": "The Resonate analytics.js integration.",
-  "author": "beckysteele",
+  "author": "becky@astronomer.io",
   "license": "MIT",
   "main": "lib/index.js",
   "version": "1.0.0",
