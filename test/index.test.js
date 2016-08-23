@@ -4,24 +4,20 @@ var integration = require('analytics.js-integration');
 var sandbox = require('clear-env');
 var tester = require('analytics.js-integration-tester');
 var Resonate = require('../lib/');
-var randNum = Math.round(Math.rand() * 100);
-
-var randNum = Math.round(Math.random()*100);
 
 describe('Resonate', function() {
   var analytics;
   var resonate;
+  // var cacheBuster = Math.round(Math.random()*100);
+  var cacheBuster = '123456';
   var options = {
-    advkey: '0010M00001QNbLwQAL',
-    opptykey: 'EBTH0616A',
-    events: {
-      partner_seller: '151749',
-      bid_on_item: '151748',
-      followed_item: '151747',
-      viewed_product_category: '151746',
-      viewed_product: '151745',
-      new_user_signup: '151744'
-    }
+    advkey: 'advkey',
+    opptykey: 'opptykey',
+    events: [      
+      {
+        key: 'signup',
+        value: 'value'
+      }]
   };
 
   beforeEach(function() {
@@ -44,7 +40,6 @@ describe('Resonate', function() {
       .option('advkey')
       .option('opptykey')
       //.option('evtype') assuming all custom for now
-      .tag('<img hrc="https://ds.reson8.com/insights.gif?rand={{ randNum }}&t=0&pixt=resonate&advkey={{ advkey }}&opptykey={{ opptykey }}&evkey={{ evkey }}&evtype=custom" width=1 height=1 border=0>')
       .mapping('events'));
   });
 
@@ -56,18 +51,31 @@ describe('Resonate', function() {
     });
 
     describe('#track', function() {
-      beforeEach(function() {
-        analytics.spy(resonate, 'load');
-      });
+      // beforeEach(function() {
+      //   analytics.spy(resonate, 'load');
+      // });
 
       it('should not send if event is not defined', function() {
+        analytics.stub(resonate, 'fire');
         analytics.track('toString');
-        analytics.didNotCall(resonate.load);
+        analytics.didNotCall(resonate.fire);
       });
 
-      it('should send correctly', function() {
-        analytics.track('partner_seller');
-        analytics.loaded('<img hrc="https://ds.reson8.com/insights.gif?rand={{ randNum }}t=0&pixt=resonate&advkey={{ advkey }}&opptykey={{ opptykey }}&evkey=151749&evtype=custom" width=1 height=1 border=0>');
+      // it('should send correctly', function() {
+      //   analytics.track('signup');
+      //   var event = options.events[0].value;
+      //   analytics.loaded('<img src="https://ds.reson8.com/insights.gif'
+      //   + '?rand=' + cacheBuster
+      //   + '&t=0&pixt=resonate&advkey=' + options.advkey
+      //   + '&opptykey=' + options.opptykey
+      //   + '&evkey=' + event
+      //   + '&evtype=custom">');
+      // });
+
+      it('should have one image tag', function() {
+          analytics.track('signup');
+          var images = document.querySelectorAll('img');
+          analytics.equal(images.length, 1);
       });
     });
   });
