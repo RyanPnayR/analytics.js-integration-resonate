@@ -8,7 +8,6 @@ var Resonate = require('../lib/');
 describe('Resonate', function() {
   var analytics;
   var resonate;
-  // var cacheBuster = Math.round(Math.random()*100);
   var cacheBuster = '123456';
   var options = {
     advkey: 'advkey',
@@ -39,7 +38,6 @@ describe('Resonate', function() {
     analytics.compare(Resonate, integration('Resonate')
       .option('advkey')
       .option('opptykey')
-      //.option('evtype') assuming all custom for now
       .mapping('events'));
   });
 
@@ -51,26 +49,11 @@ describe('Resonate', function() {
     });
 
     describe('#track', function() {
-      // beforeEach(function() {
-      //   analytics.spy(resonate, 'load');
-      // });
-
       it('should not send if event is not defined', function() {
         analytics.stub(resonate, 'fire');
         analytics.track('toString');
         analytics.didNotCall(resonate.fire);
       });
-
-      // it('should send correctly', function() {
-      //   analytics.track('signup');
-      //   var event = options.events[0].value;
-      //   analytics.loaded('<img src="https://ds.reson8.com/insights.gif'
-      //   + '?rand=' + cacheBuster
-      //   + '&t=0&pixt=resonate&advkey=' + options.advkey
-      //   + '&opptykey=' + options.opptykey
-      //   + '&evkey=' + event
-      //   + '&evtype=custom">');
-      // });
 
       it('should have one image tag', function() {
           analytics.track('signup');
