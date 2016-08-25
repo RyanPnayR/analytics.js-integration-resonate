@@ -16,6 +16,11 @@ describe('Resonate', function() {
       {
         key: 'signup',
         value: 'value'
+      }],
+    impressionEvents: [
+      {
+        key: 'pages',
+        value: 'impressionValue'
       }]
   };
 
@@ -38,7 +43,8 @@ describe('Resonate', function() {
     analytics.compare(Resonate, integration('Resonate')
       .option('advkey')
       .option('opptykey')
-      .mapping('events'));
+      .mapping('events')
+      .mapping('impressionEvents'));
   });
 
   describe('after loading', function() {
@@ -55,11 +61,17 @@ describe('Resonate', function() {
         analytics.didNotCall(resonate.fire);
       });
 
-      it('should have one image tag', function() {
+      it('should have one custom image tag', function() {
           analytics.track('signup');
           var images = document.querySelectorAll('img');
           analytics.equal(images.length, 1);
       });
+
+      it('should have one impression image tag', function() {
+          analytics.track('pages');
+          var images = document.querySelectorAll('img');
+          analytics.equal(images.length, 1);
+      });      
     });
   });
 });
