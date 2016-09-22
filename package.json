@@ -1,5 +1,5 @@
 {
-  "name": "analytics.js-integration-resonate",
+  "name": "@astronomerio/analytics.js-integration-resonate",
   "description": "The Resonate analytics.js integration.",
   "author": "becky@astronomer.io",
   "license": "MIT",
