@@ -1,8 +1,7 @@
-
-var Analytics = require('analytics.js-core').constructor;
-var integration = require('analytics.js-integration');
-var sandbox = require('clear-env');
-var tester = require('analytics.js-integration-tester');
+var Analytics = require('@astronomerio/analytics.js-core').constructor;
+var integration = require('@astronomerio/analytics.js-integration');
+var sandbox = require('@segment/clear-env');
+var tester = require('@segment/analytics.js-integration-tester');
 var Resonate = require('../lib/');
 
 describe('Resonate', function() {
@@ -17,11 +16,11 @@ describe('Resonate', function() {
         key: 'signup',
         value: 'value'
       }],
-    impressionEvents: [
-      {
-        key: 'pages',
-        value: 'impressionValue'
-      }]
+      impressionEvents: [
+        {
+          key: 'pages',
+          value: 'impressionValue'
+        }]
   };
 
   beforeEach(function() {
@@ -41,10 +40,10 @@ describe('Resonate', function() {
 
   it('should have the correct settings', function() {
     analytics.compare(Resonate, integration('Resonate')
-      .option('advkey')
-      .option('opptykey')
-      .mapping('events')
-      .mapping('impressionEvents'));
+                      .option('advkey')
+                      .option('opptykey')
+                      .mapping('events')
+                      .mapping('impressionEvents'));
   });
 
   describe('after loading', function() {
@@ -62,16 +61,16 @@ describe('Resonate', function() {
       });
 
       it('should have one custom image tag', function() {
-          analytics.track('signup');
-          var images = document.querySelectorAll('img');
-          analytics.equal(images.length, 1);
+        analytics.track('signup');
+        var images = document.querySelectorAll('img');
+        analytics.equal(images.length, 1);
       });
 
       it('should have one impression image tag', function() {
-          analytics.track('pages');
-          var images = document.querySelectorAll('img');
-          analytics.equal(images.length, 1);
-      });      
+        analytics.track('pages');
+        var images = document.querySelectorAll('img');
+        analytics.equal(images.length, 1);
+      });
     });
   });
 });
