@@ -11,16 +11,12 @@ describe('Resonate', function() {
   var options = {
     advkey: 'advkey',
     opptykey: 'opptykey',
-    events: [      
-      {
-        key: 'signup',
-        value: 'value'
-      }],
-      impressionEvents: [
-        {
-          key: 'pages',
-          value: 'impressionValue'
-        }]
+    events: {
+      'signup': 'value'
+    },
+    impressionEvents: {
+      'pages': 'impressionValue'
+    }
   };
 
   beforeEach(function() {
@@ -61,15 +57,17 @@ describe('Resonate', function() {
       });
 
       it('should have one custom image tag', function() {
+        var imgCount = document.getElementsByTagName('img').length;
         analytics.track('signup');
-        var images = document.querySelectorAll('img');
-        analytics.equal(images.length, 1);
+        var newImgCount = document.getElementsByTagName('img').length;
+        analytics.equal(newImgCount, imgCount + 1);
       });
 
       it('should have one impression image tag', function() {
+        var imgCount = document.getElementsByTagName('img').length;
         analytics.track('pages');
-        var images = document.querySelectorAll('img');
-        analytics.equal(images.length, 1);
+        var newImgCount = document.getElementsByTagName('img').length;
+        analytics.equal(newImgCount, imgCount + 1);
       });
     });
   });
