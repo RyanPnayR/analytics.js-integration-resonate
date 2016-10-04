@@ -12,11 +12,11 @@ describe('Resonate', function() {
     advkey: 'advkey',
     opptykey: 'opptykey',
     events: {
-      'signup': 'value'
+      'Email Sign Up': 'value'
     },
-    impressionEvents: {
-      'pages': 'impressionValue'
-    }
+    pageEventKeys: [
+      'helloWorld'
+    ]
   };
 
   beforeEach(function() {
@@ -36,38 +36,38 @@ describe('Resonate', function() {
 
   it('should have the correct settings', function() {
     analytics.compare(Resonate, integration('Resonate')
-                      .option('advkey')
-                      .option('opptykey')
-                      .mapping('events')
-                      .mapping('impressionEvents'));
+                      .option('advkey', '')
+                      .option('opptykey', '')
+                      .option('pageEventKeys', [])
+                      .mapping('events'));
   });
 
   describe('after loading', function() {
     beforeEach(function(done) {
       analytics.once('ready', done);
       analytics.initialize();
-      analytics.page();
+    });
+
+    describe('#page', function () {
+      it('should add img tag', function () {
+        analytics.stub(resonate, 'load')
+        analytics.page();
+        analytics.called(resonate.load);
+      });
     });
 
     describe('#track', function() {
-      it('should not send if event is not defined', function() {
-        analytics.stub(resonate, 'fire');
-        analytics.track('toString');
-        analytics.didNotCall(resonate.fire);
+      beforeEach(function () {
+        analytics.stub(resonate, 'load');
+      });
+      it('should add img tag for defined events', function() {
+        analytics.track('Email Sign Up', {});
+        analytics.called(resonate.load);
       });
 
-      it('should have one custom image tag', function() {
-        var imgCount = document.getElementsByTagName('img').length;
-        analytics.track('signup');
-        var newImgCount = document.getElementsByTagName('img').length;
-        analytics.equal(newImgCount, imgCount + 1);
-      });
-
-      it('should have one impression image tag', function() {
-        var imgCount = document.getElementsByTagName('img').length;
-        analytics.track('pages');
-        var newImgCount = document.getElementsByTagName('img').length;
-        analytics.equal(newImgCount, imgCount + 1);
+      it('should not fire pixel for undefined event', function () {
+        analytics.track('Email Sign', {});
+        analytics.didNotCall(resonate.load);
       });
     });
   });
