@@ -4,7 +4,7 @@
   "author": "becky@astronomer.io",
   "license": "MIT",
   "main": "lib/index.js",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "scripts": {
     "test": "make test"
   },
@@ -25,7 +25,7 @@
     "@ndhoule/each": "^2.0.1"
   },
   "devDependencies": {
-    "@astronomerio/analytics.js-core": "github:astronomerio/analytics.js-core",
+    "@astronomerio/analytics.js-core": "github:astronomerio/analytics.js-core#3.0.0",
     "@segment/analytics.js-integration-tester": "^2.0.0",
     "@segment/clear-env": "^2.0.1",
     "@segment/eslint-config": "^3.1.1",
@@ -47,8 +47,8 @@
     "karma-spec-reporter": "0.0.26",
     "mocha": "^2.5.3",
     "npm-check": "^5.2.2",
+    "phantomjs": "^1.9.17",
     "phantomjs-prebuilt": "^2.1.8",
-    "watchify": "^3.7.0",
-    "phantomjs": "^1.9.17"
+    "watchify": "^3.7.0"
   }
 }
