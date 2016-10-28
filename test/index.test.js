@@ -1,3 +1,5 @@
+'use strict';
+
 var Analytics = require('@astronomerio/analytics.js-core').constructor;
 var integration = require('@astronomerio/analytics.js-integration');
 var sandbox = require('@segment/clear-env');
@@ -7,7 +9,6 @@ var Resonate = require('../lib/');
 describe('Resonate', function() {
   var analytics;
   var resonate;
-  var cacheBuster = '123456';
   var options = {
     advkey: 'advkey',
     opptykey: 'opptykey',
@@ -48,16 +49,16 @@ describe('Resonate', function() {
       analytics.initialize();
     });
 
-    describe('#page', function () {
-      it('should add img tag', function () {
-        analytics.stub(resonate, 'load')
+    describe('#page', function() {
+      it('should add img tag', function() {
+        analytics.stub(resonate, 'load');
         analytics.page();
         analytics.called(resonate.load);
       });
     });
 
     describe('#track', function() {
-      beforeEach(function () {
+      beforeEach(function() {
         analytics.stub(resonate, 'load');
       });
       it('should add img tag for defined events', function() {
@@ -65,7 +66,7 @@ describe('Resonate', function() {
         analytics.called(resonate.load);
       });
 
-      it('should not fire pixel for undefined event', function () {
+      it('should not fire pixel for undefined event', function() {
         analytics.track('Email Sign', {});
         analytics.didNotCall(resonate.load);
       });
