@@ -12,6 +12,7 @@ describe('Resonate', function() {
   var options = {
     advkey: 'advkey',
     opptykey: 'opptykey',
+    identifyPixelKey: 'identifyPixelKey',
     events: {
       'Email Sign Up': 'value'
     },
@@ -45,22 +46,35 @@ describe('Resonate', function() {
 
   describe('after loading', function() {
     beforeEach(function(done) {
+      analytics.stub(resonate, 'load');
       analytics.once('ready', done);
       analytics.initialize();
     });
 
+    describe('#identify', function() {
+      it('should add img tag', function() {
+        resonate.cacheBuster = function() {
+          return 45;
+        };
+        analytics.identify('my_user_id');
+        analytics.called(resonate.load, 'identifyPixel', {
+          userId: 'my_user_id',
+          advkey: 'advkey',
+          opptykey: 'opptykey',
+          evtype: 'custom',
+          cacheBuster: 45
+        });
+      });
+    });
+
     describe('#page', function() {
       it('should add img tag', function() {
-        analytics.stub(resonate, 'load');
         analytics.page();
         analytics.called(resonate.load);
       });
     });
 
     describe('#track', function() {
-      beforeEach(function() {
-        analytics.stub(resonate, 'load');
-      });
       it('should add img tag for defined events', function() {
         analytics.track('Email Sign Up', {});
         analytics.called(resonate.load);
