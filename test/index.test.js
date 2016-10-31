@@ -62,6 +62,7 @@ describe('Resonate', function() {
           advkey: 'advkey',
           opptykey: 'opptykey',
           evtype: 'custom',
+          evkey: 'identifyPixelKey',
           cacheBuster: 45
         });
       });
